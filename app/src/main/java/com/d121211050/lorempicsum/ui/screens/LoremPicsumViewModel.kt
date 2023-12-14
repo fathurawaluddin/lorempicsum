@@ -31,15 +31,15 @@ class LoremPicsumViewModel(private val loremPicsumRepository: LoremPicsumReposit
         private set
 
     /**
-     * Call getMarsPhotos() on init so we can display status immediately.
+     * Call getLoremPicsum() on init so we can display status immediately.
      */
     init {
         getLoremPicsum()
     }
 
     /**
-     * Gets Mars photos information from the Mars API Retrofit service and updates the
-     * [MarsPhoto] [List] [MutableList].
+     * Gets Lorem Picsum photos information from the Lorem Picsum API Retrofit service and updates the
+     * [LoremPicsumPhoto] [List] [MutableList].
      */
     fun getLoremPicsum() {
         viewModelScope.launch {
@@ -55,7 +55,7 @@ class LoremPicsumViewModel(private val loremPicsumRepository: LoremPicsumReposit
     }
 
     /**
-     * Factory for [MarsViewModel] that takes [MarsPhotosRepository] as a dependency
+     * Factory for [LoremPicsumViewModel] that takes [LoremPicsumRepository] as a dependency
      */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {

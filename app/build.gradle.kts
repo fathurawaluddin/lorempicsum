@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.d121211050.lorempicsum"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.d121211050.lorempicsum"
@@ -69,6 +69,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.7.5")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")

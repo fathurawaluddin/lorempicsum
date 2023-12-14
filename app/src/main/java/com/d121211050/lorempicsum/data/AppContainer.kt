@@ -37,7 +37,7 @@ class DefaultAppContainer : AppContainer {
     }
 
     /**
-     * DI implementation for Mars photos repository
+     * DI implementation for Lorem Picsum photos repository
      */
     override val loremPicsumRepository: LoremPicsumRepository by lazy {
         NetworkLoremPicsumRepository(retrofitService)
