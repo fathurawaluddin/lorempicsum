@@ -19,7 +19,8 @@ data class LoremPicsumPhoto(
     @SerialName(value = "url")
     val url: String,
     @SerialName(value = "download_url")
-    val image: String
+    val image: String,
+    val photos: List<LoremPicsumPhoto> = emptyList()
 ) {
     // Calculate the new width and height by dividing the original values by 10
     val newWidth: Int = width / 10

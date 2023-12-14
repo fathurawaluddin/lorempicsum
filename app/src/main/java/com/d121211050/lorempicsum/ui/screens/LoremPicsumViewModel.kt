@@ -26,6 +26,10 @@ sealed interface LoremPicsumUiState {
 }
 
 class LoremPicsumViewModel(private val loremPicsumRepository: LoremPicsumRepository) : ViewModel() {
+
+    // Property to store the list of photos
+    private var photos: List<LoremPicsumPhoto> by mutableStateOf(emptyList())
+
     /** The mutable State that stores the status of the most recent request */
     var loremPicsumUiState: LoremPicsumUiState by mutableStateOf(LoremPicsumUiState.Loading)
         private set
@@ -44,14 +48,22 @@ class LoremPicsumViewModel(private val loremPicsumRepository: LoremPicsumReposit
     fun getLoremPicsum() {
         viewModelScope.launch {
             loremPicsumUiState = LoremPicsumUiState.Loading
-            loremPicsumUiState = try {
-                LoremPicsumUiState.Success(loremPicsumRepository.getLoremPicsum())
+            try {
+                // Update the photos property with the fetched data
+                photos = loremPicsumRepository.getLoremPicsum()
+                loremPicsumUiState = LoremPicsumUiState.Success(photos)
             } catch (e: IOException) {
-                LoremPicsumUiState.Error
+                loremPicsumUiState = LoremPicsumUiState.Error
             } catch (e: HttpException) {
-                LoremPicsumUiState.Error
+                loremPicsumUiState = LoremPicsumUiState.Error
             }
         }
+    }
+
+    // Method to get a photo by ID
+    fun getPhotoById(photoId: String): LoremPicsumPhoto {
+        return photos.find { it.id == photoId }
+            ?: throw NoSuchElementException("Photo not found")
     }
 
     /**

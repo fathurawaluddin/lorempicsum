@@ -2,6 +2,7 @@
 
 package com.d121211050.lorempicsum.ui
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
