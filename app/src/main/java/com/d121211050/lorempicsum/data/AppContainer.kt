@@ -19,7 +19,7 @@ interface AppContainer {
  * Variables are initialized lazily and the same instance is shared across the whole app.
  */
 class DefaultAppContainer : AppContainer {
-    private val baseUrl = "https://picsum.photos/v2/list/"
+    private val baseUrl = "https://picsum.photos/v2/"
 
     /**
      * Use the Retrofit builder to build a retrofit object using a kotlinx.serialization converter

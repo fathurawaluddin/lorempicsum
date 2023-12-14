@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -86,13 +88,13 @@ fun PhotosGridScreen(photos: List<LoremPicsumPhoto>, modifier: Modifier = Modifi
     LazyVerticalGrid(
         columns = GridCells.Fixed(1),
         modifier = modifier,
-        contentPadding = PaddingValues(4.dp)
+        contentPadding = PaddingValues(16.dp)
     ) {
         items(items = photos, key = { photo -> photo.id }) { photo ->
             LoremPicsumPhotoCard(
                 photo,
                 modifier = modifier
-                    .padding(4.dp)
+                    .padding(12.dp)
                     .fillMaxWidth()
                     .aspectRatio(1.5f)
             )
@@ -105,17 +107,47 @@ fun LoremPicsumPhotoCard(photo: LoremPicsumPhoto, modifier: Modifier = Modifier)
     Card(
         modifier = modifier,
         shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
-        AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current).data(photo.newUrl)
-                .crossfade(true).build(),
-            error = painterResource(R.drawable.ic_broken_image),
-            placeholder = painterResource(R.drawable.loading_img),
-            contentDescription = stringResource(R.string.lorempicsum_photo),
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth()
-        )
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            // Display the image
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current).data(photo.newUrl)
+                    .crossfade(true).build(),
+                error = painterResource(R.drawable.ic_broken_image),
+                placeholder = painterResource(R.drawable.loading_img),
+                contentDescription = stringResource(R.string.lorempicsum_photo),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f) // Occupy 1:1 aspect ratio space for image
+            )
+
+            // Display the id and author information
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 6.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "#${photo.id}",
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.SemiBold
+                    ),
+                    modifier = Modifier.padding(bottom = 0.dp)
+                )
+                Text(
+                    text = photo.author,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Normal
+                    ),
+                    modifier = Modifier.padding(bottom = 0.dp)
+                )
+            }
+        }
     }
 }
 
@@ -142,8 +174,8 @@ fun PhotosGridScreenPreview() {
         val mockData = List(30) { LoremPicsumPhoto(
             "$it",
             "",
-            "$it",
-            "$it",
+            it,
+            it,
             "",
             "")}
         PhotosGridScreen(mockData)

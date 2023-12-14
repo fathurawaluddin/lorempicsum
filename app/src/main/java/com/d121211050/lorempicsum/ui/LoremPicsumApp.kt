@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.d121211050.lorempicsum.R
 import com.d121211050.lorempicsum.ui.screens.HomeScreen
@@ -51,7 +52,8 @@ fun LoremPicsumTopAppBar(scrollBehavior: TopAppBarScrollBehavior, modifier: Modi
         title = {
             Text(
                 text = stringResource(R.string.app_name),
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.Medium)
             )
         },
         modifier = modifier
